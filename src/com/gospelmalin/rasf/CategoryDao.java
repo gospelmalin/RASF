@@ -38,5 +38,15 @@ public class CategoryDao {
 	      return categoriesList; 
 	   } 
 
+	public Category getCategory(int categoryKey){
+		   List<Category> categories = getAll();
 
+	      for(Category category: categories){
+	         if(category.getCategoryKey() == categoryKey){
+	            return category;
+	         }
+	      }
+	      return null;
+	   }
+	
 }
