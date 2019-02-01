@@ -1,11 +1,16 @@
 package com.gospelmalin.rasf;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 //Själva webservicen
@@ -31,4 +36,21 @@ public class CategoryService {
 	      return categoryDao.getCategory(categoryKey);
 	   }
 
+	   @POST
+	   @Path("/categories")
+	   @Produces(MediaType.APPLICATION_XML)
+	 //  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	   public String createCategory(
+			   @QueryParam("categoryName") String categoryName, 
+			   @Context HttpServletResponse servletResponse) throws IOException{
+		  Category category = new Category(categoryName);
+	      int result = categoryDao.addCategory(category);
+	      if(result == 1){
+	         return SUCCESS_RESULT;
+	      }
+	      return FAILURE_RESULT;
+	   }
+	   
+	   
+	   
 }
