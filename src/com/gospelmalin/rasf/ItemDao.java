@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 public class ItemDao {
 	
 	public List<Item> getAll() {
@@ -90,6 +91,48 @@ public class ItemDao {
 	         }
 	      }
 	      return null;
+	   }
+	
+	public int addItem(Item pItem){
+	      List<Item> itemList = getAll();
+	      boolean itemExists = false;
+	      for(Item item: itemList){
+	         if(item.getItemName() == pItem.getItemName()){
+	            itemExists = true;
+	            break;
+	         }
+	      }		
+	      if(!itemExists){
+	         itemList.add(pItem);
+	         // Setup query
+	         String query = "INSERT INTO item(category_key, item_name, units_always_at_home, number_of_units, available, storageplace_key) VALUES(?,?,?,?,?,?);";
+	         Connection conn = Database.connectMariaDb();
+	         try {
+				// Setup statement
+				 PreparedStatement stmt = conn.prepareStatement(query);
+   
+				 // Set values
+				stmt.setInt(1, pItem.getCategoryKey());
+				stmt.setString(2, pItem.getItemName());
+				stmt.setInt(3, pItem.getUnitsAlways());
+				stmt.setInt(4, pItem.getNumberOfUnits());
+				stmt.setString(5, pItem.getAvailable()); 
+				stmt.setInt(6, pItem.getStorageplaceKey());
+				
+				// Execute statement
+				stmt.executeUpdate();
+				
+				// Closing statement and connection
+				stmt.close();
+				Database.mariaDbClose();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		      
+	         return 1;
+	      }
+	      return 0;
 	   }
 	
 

@@ -83,6 +83,17 @@ public class Item implements Serializable {
 		this.numberOfUnits = numberOfUnits;
 }
 
+		public Item(int categoryKey, String itemName, int unitsAlways, String available, int numberOfUnits,
+			int storageplaceKey) {
+			super();
+			this.categoryKey = categoryKey;
+			this.itemName = itemName;
+			this.unitsAlways = unitsAlways;
+			this.available = available;
+			this.numberOfUnits = numberOfUnits;
+			this.storageplaceKey = storageplaceKey;
+	}
+
 		// Getters and setters
 		public int getItemKey() {
 			return itemKey;

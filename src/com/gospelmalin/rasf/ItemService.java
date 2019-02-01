@@ -8,6 +8,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.PATCH;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -64,6 +65,28 @@ public class ItemService {
 	      return FAILURE_RESULT;
 	   }
 	   
+	   @POST
+	   @Path("/items")
+	   @Produces(MediaType.APPLICATION_XML)
+	 //  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	   public String createItem(
+			   @QueryParam("categoryKey") int categoryKey, 
+			   @QueryParam("itemName") String itemName, 
+			   @QueryParam("unitsAlways") int unitsAlways, 
+			   @QueryParam("available") String available, 
+			   @QueryParam("numberOfUnits") int numberOfUnits,   
+			//   @QueryParam("categoryName") String categoryName,
+			   @QueryParam("storageplaceKey") int storageplaceKey,
+	   		//   @QueryParam("storageplaceName") String storageplaceName,
+	      @Context HttpServletResponse servletResponse) throws IOException{
+		   Item item = new Item(categoryKey, itemName, unitsAlways, available, numberOfUnits, storageplaceKey);
+	      int result = itemDao.addItem(item);
+	      if(result == 1){
+	         return SUCCESS_RESULT;
+	      }
+	      return FAILURE_RESULT;
+	   }
+	   
 	   /*
 	   @PUT
 	   @Path("/items")
@@ -93,7 +116,8 @@ public class ItemService {
 	   @Path("/users")
 	   @Produces(MediaType.APPLICATION_XML)
 	   public String getSupportedOperations(){
-	      return "<operations>GET, PUT, POST, DELETE</operations>";
+	      //return "<operations>GET, PUT, POST, DELETE</operations>";
+		   return "<operations>GET, PUT, POST</operations>"; //DELETE FROM ITEM NOT ALLOWED
 	   }
 	   
 }
