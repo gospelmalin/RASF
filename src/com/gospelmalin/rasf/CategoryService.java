@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -66,6 +68,25 @@ public class CategoryService {
 	         return SUCCESS_RESULT;
 	      }
 	      return FAILURE_RESULT;
+	   }
+	   
+	   // Note that deleting a category will remove also any linked items!
+	   @DELETE
+	   @Path("/categories/{categoryKey}")
+	   @Produces(MediaType.APPLICATION_XML)
+	   public String deleteCategory(@PathParam("categoryKey") int categoryKey){
+	      int result = categoryDao.deleteCategory(categoryKey);
+	      if(result == 1){
+	         return SUCCESS_RESULT;
+	      }
+	      return FAILURE_RESULT;
+	   }
+	   
+	   @OPTIONS
+	   @Path("/categories")
+	   @Produces(MediaType.APPLICATION_XML)
+	   public String getSupportedOperations(){
+		   return "<operations>GET, PUT, POST, DELETE</operations>"; // Note that deleting a category will also delete any linked items.
 	   }
 	   
 }

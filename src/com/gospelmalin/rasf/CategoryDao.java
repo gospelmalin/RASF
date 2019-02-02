@@ -122,4 +122,41 @@ public class CategoryDao {
 	      return 0;
 	   }
 	
+	// Note that deleting a category will remove also any linked items!
+	public int deleteCategory(int categoryKey){
+		
+	      List<Category> categoryList = getAll();
+
+	      for(Category category: categoryList){
+	         if(category.getCategoryKey() == categoryKey){
+	            int index = categoryList.indexOf(category);			
+	            categoryList.remove(index);
+	            
+	            String query = "DELETE FROM category WHERE category_key=?;";
+		         Connection conn = Database.connectMariaDb();
+		         try {
+					// Setup statement
+					 PreparedStatement stmt = conn.prepareStatement(query);
+	     
+					 // Set values
+					
+					stmt.setInt(1, categoryKey);
+					
+					// Execute statment
+					stmt.executeUpdate();
+					
+					// Closing statement and connection
+					stmt.close();
+					Database.mariaDbClose();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+	            return 1;   
+	         }
+	      }		
+	      return 0;
+	   }
+	
 }
