@@ -60,7 +60,7 @@ public class ItemService {
 	   @PUT
 	   @Path("/items/{itemKey}")
 	   @Produces(MediaType.APPLICATION_XML)
-	   public String updateItem(@QueryParam("itemKey") int itemKey,
+	   public String updateItem(@PathParam("itemKey") int itemKey,
 			   @QueryParam("categoryKey") int categoryKey, 
 			   @QueryParam("itemName") String itemName, 
 			   @QueryParam("unitsAlways") int unitsAlways, 
@@ -127,7 +127,7 @@ public class ItemService {
 	   */
 
 	   @OPTIONS
-	   @Path("/users")
+	   @Path("/items")
 	   @Produces(MediaType.APPLICATION_XML)
 	   public String getSupportedOperations(){
 	      //return "<operations>GET, PUT, POST, DELETE</operations>";
