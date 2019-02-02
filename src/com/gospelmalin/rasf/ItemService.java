@@ -43,8 +43,15 @@ public class ItemService {
 	      return itemDao.getItem(itemKey);
 	   }
 	   
+	   @GET
+	   @Path("/categories/{categoryKey}/items")
+	   @Produces(MediaType.APPLICATION_XML)
+	   public List<Item> getItemsForCategory(@PathParam("categoryKey") int categoryKey){
+	      return itemDao.getAllForCategory(categoryKey);
+	   }
+	   
 	   @PUT
-	   @Path("/items")
+	   @Path("/items/{itemKey}")
 	   @Produces(MediaType.APPLICATION_XML)
 	   public String updateItem(@QueryParam("itemKey") int itemKey,
 			   @QueryParam("categoryKey") int categoryKey, 

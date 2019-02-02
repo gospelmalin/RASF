@@ -51,6 +51,21 @@ public class ItemDao {
 	      return null;
 	   }
 	
+	public List<Item> getAllForCategory(int categoryKey) {
+		 List<Item> items = getAll();
+		 List<Item> itemsForCategory = null;
+		 itemsForCategory = new ArrayList<Item>();
+		 
+		 for(Item item: items){
+	         if(item.getCategoryKey() == categoryKey){
+	           itemsForCategory.add(item);
+	           System.out.println("Found this item in selected category: " + item.getItemName());
+	         }     
+		 }
+		 return itemsForCategory;
+	   } 
+	
+	
 	public int addItem(Item pItem){
 	      List<Item> itemList = getAll();
 	      boolean itemExists = false;
