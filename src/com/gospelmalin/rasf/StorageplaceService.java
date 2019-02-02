@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.GET;
+import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -64,5 +65,12 @@ public class StorageplaceService {
 	         return SUCCESS_RESULT;
 	      }
 	      return FAILURE_RESULT;
+	   }
+	   
+	   @OPTIONS
+	   @Path("/storageplaces")
+	   @Produces(MediaType.APPLICATION_XML)
+	   public String getSupportedOperations(){
+		   return "<operations>GET, PUT, POST, DELETE</operations>"; // Note that deleting a storageplace will also delete any linked items.
 	   }
 }	   
