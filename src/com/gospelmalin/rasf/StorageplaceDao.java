@@ -46,4 +46,42 @@ public class StorageplaceDao {
 	      return null;
 	   }
 
+	public int addStorageplace (Storageplace pStorageplace){
+	      List<Storageplace> storageplaceList = getAll();
+	      boolean storageplaceExists = false;
+	      for(Storageplace storageplace: storageplaceList){
+	         if(storageplace.getStorageplaceName() == pStorageplace.getStorageplaceName()){
+	        	 storageplaceExists = true;
+	            break;
+	         }
+	      }		
+	      if(!storageplaceExists){
+	    	  storageplaceList.add(pStorageplace);
+	         // Setup query
+	         String query = "INSERT INTO storageplace(storageplace_name) VALUE(?);";
+	         Connection conn = Database.connectMariaDb();
+	         try {
+				// Setup statement
+				 PreparedStatement stmt = conn.prepareStatement(query);
+
+				 // Set values
+				stmt.setString(1, pStorageplace.getStorageplaceName());
+								
+				// Execute statement
+				stmt.executeUpdate();
+				
+				// Closing statement and connection
+				stmt.close();
+				Database.mariaDbClose();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return 0;
+			}
+		      
+	         return 1;
+	      }
+	      return 0;
+	   }
+	
 }

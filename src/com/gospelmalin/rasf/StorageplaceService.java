@@ -36,4 +36,19 @@ public class StorageplaceService {
 	   public Storageplace getCategory(@PathParam("storageplaceKey") int storageplaceKey){
 	      return storageplaceDao.getStorageplace(storageplaceKey);
 	   }
+	   
+	   @POST
+	   @Path("/storageplaces")
+	   @Produces(MediaType.APPLICATION_XML)
+	 //  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	   public String createStorageplace(
+			   @QueryParam("storageplaceName") String storageplaceName, 
+			   @Context HttpServletResponse servletResponse) throws IOException{
+		  Storageplace storageplace = new Storageplace(storageplaceName);
+	      int result = storageplaceDao.addStorageplace(storageplace);
+	      if(result == 1){
+	         return SUCCESS_RESULT;
+	      }
+	      return FAILURE_RESULT;
+	   }
 }	   
