@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
@@ -61,6 +62,18 @@ public class StorageplaceService {
 			   @Context HttpServletResponse servletResponse) throws IOException{
 		  Storageplace storageplace = new Storageplace(storageplaceKey, storageplaceName);
 	      int result = storageplaceDao.updateStorageplace(storageplace);
+	      if(result == 1){
+	         return SUCCESS_RESULT;
+	      }
+	      return FAILURE_RESULT;
+	   }
+	   
+	   // Note that deleting a storageplace will remove also any linked items!
+	   @DELETE
+	   @Path("/storageplaces/{storageplaceKey}")
+	   @Produces(MediaType.APPLICATION_XML)
+	   public String deleteStorageplace(@PathParam("storageplaceKey") int storageplaceKey){
+	      int result = storageplaceDao.deleteStorageplace(storageplaceKey);
 	      if(result == 1){
 	         return SUCCESS_RESULT;
 	      }

@@ -142,7 +142,7 @@ public class CategoryDao {
 					
 					stmt.setInt(1, categoryKey);
 					
-					// Execute statment
+					// Execute statement
 					stmt.executeUpdate();
 					
 					// Closing statement and connection
@@ -151,6 +151,7 @@ public class CategoryDao {
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					return 0;
 				}
 
 	            return 1;   

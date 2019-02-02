@@ -121,4 +121,42 @@ public class StorageplaceDao {
 	      return 0;
 	   }
 	
+	// Note that deleting a storageplace will remove also any linked items!
+		public int deleteStorageplace(int storageplaceKey){
+			
+		      List<Storageplace> storageplaceList = getAll();
+
+		      for(Storageplace storageplace: storageplaceList){
+		         if(storageplace.getStorageplaceKey() == storageplaceKey){
+		            int index = storageplaceList.indexOf(storageplace);			
+		            storageplaceList.remove(index);
+		            
+		            String query = "DELETE FROM storageplace WHERE storageplace_key=?;";
+			         Connection conn = Database.connectMariaDb();
+			         try {
+						// Setup statement
+						 PreparedStatement stmt = conn.prepareStatement(query);
+		     
+						 // Set values
+						
+						stmt.setInt(1, storageplaceKey);
+						
+						// Execute statement
+						stmt.executeUpdate();
+						
+						// Closing statement and connection
+						stmt.close();
+						Database.mariaDbClose();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return 0;
+					}
+
+		            return 1;   
+		         }
+		      }		
+		      return 0;
+		   }
+	
 }
