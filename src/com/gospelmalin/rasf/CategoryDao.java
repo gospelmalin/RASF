@@ -85,4 +85,41 @@ public class CategoryDao {
 	      return 0;
 	   }
 	
+	public int updateCategory(Category pCategory){
+	      List<Category> categoryList = getAll();
+
+	      for(Category category: categoryList){
+	         if(category.getCategoryKey() == pCategory.getCategoryKey()){
+	            int index = categoryList.indexOf(category);			
+	            categoryList.set(index, pCategory);
+
+	           String query = "UPDATE category SET category_name = ? WHERE category_key = ?;";
+			       
+	            Connection conn = Database.connectMariaDb();
+		         try {
+					// Setup statement
+					 PreparedStatement stmt = conn.prepareStatement(query);
+	     
+					 // Set values
+					 stmt.setString(1, pCategory.getCategoryName());
+					 stmt.setInt(2, pCategory.getCategoryKey());
+										
+					// Execute statement
+					stmt.executeUpdate();
+					
+					// Closing statement and connection
+					stmt.close();
+					Database.mariaDbClose();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return 0;
+				}
+	            
+	            return 1;
+	         }
+	      }		
+	      return 0;
+	   }
+	
 }
