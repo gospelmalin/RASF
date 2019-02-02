@@ -50,6 +50,13 @@ public class ItemService {
 	      return itemDao.getAllForCategory(categoryKey);
 	   }
 	   
+	   @GET
+	   @Path("/storageplaces/{storageplaceKey}/items")
+	   @Produces(MediaType.APPLICATION_XML)
+	   public List<Item> getItemsForStorageplace(@PathParam("storageplaceKey") int storageplaceKey){
+	      return itemDao.getAllForStorageplace(storageplaceKey);
+	   }
+	   
 	   @PUT
 	   @Path("/items/{itemKey}")
 	   @Produces(MediaType.APPLICATION_XML)

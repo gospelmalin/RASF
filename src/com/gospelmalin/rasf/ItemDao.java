@@ -65,6 +65,20 @@ public class ItemDao {
 		 return itemsForCategory;
 	   } 
 	
+	public List<Item> getAllForStorageplace(int storageplaceKey) {
+		 List<Item> items = getAll();
+		 List<Item> itemsForStorageplace = null;
+		 itemsForStorageplace= new ArrayList<Item>();
+		 
+		 for(Item item: items){
+	         if(item.getStorageplaceKey() == storageplaceKey){
+	        	 itemsForStorageplace.add(item);
+	           System.out.println("Found this item for selected storageplace: " + item.getItemName());
+	         }     
+		 }
+		 return itemsForStorageplace;
+	   } 
+	
 	
 	public int addItem(Item pItem){
 	      List<Item> itemList = getAll();
