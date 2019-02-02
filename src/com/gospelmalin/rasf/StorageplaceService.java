@@ -51,4 +51,18 @@ public class StorageplaceService {
 	      }
 	      return FAILURE_RESULT;
 	   }
+	   
+	   @PUT
+	   @Path("/storageplaces/{storageplaceKey}")
+	   @Produces(MediaType.APPLICATION_XML)
+	   public String updateStorageplace(@PathParam("storageplaceKey") int storageplaceKey,
+			   @QueryParam("storageplaceName") String storageplaceName, 
+			   @Context HttpServletResponse servletResponse) throws IOException{
+		  Storageplace storageplace = new Storageplace(storageplaceKey, storageplaceName);
+	      int result = storageplaceDao.updateStorageplace(storageplace);
+	      if(result == 1){
+	         return SUCCESS_RESULT;
+	      }
+	      return FAILURE_RESULT;
+	   }
 }	   
