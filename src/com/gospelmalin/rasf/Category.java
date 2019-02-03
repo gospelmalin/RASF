@@ -5,7 +5,9 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+/**
+ * The Class Category holds information about the categories an item can be assigned to.
+ */
 @XmlRootElement(name = "category")
 public class Category implements Serializable {
 	  
