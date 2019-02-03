@@ -16,7 +16,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-//Själva webservicen
+/**
+ * The Class CategoryService is the actual webservice for category.
+ */
 @Path("/CategoryService")
 public class CategoryService {
 
@@ -24,7 +26,10 @@ public class CategoryService {
 	   private static final String SUCCESS_RESULT="<result>success</result>";
 	   private static final String FAILURE_RESULT="<result>failure</result>";
 
-	   
+	   /**
+	    * Show all categories
+	    *
+	    */
 	   @GET
 	   @Path("/categories")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -32,6 +37,10 @@ public class CategoryService {
 	      return categoryDao.getAll();
 	   }
 	   
+	   /**
+	    * Show information about selected category
+	    *
+	    */
 	   @GET
 	   @Path("/categories/{categoryKey}")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -40,7 +49,10 @@ public class CategoryService {
 	   }
 	   
 	 
-
+	   /**
+		 * Add a new category
+		 *
+		 */
 	   @POST
 	   @Path("/categories")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -56,6 +68,10 @@ public class CategoryService {
 	      return FAILURE_RESULT;
 	   }
 	   
+	   /**
+		 * Update category name
+		 *
+		 */
 	   @PUT
 	   @Path("/categories/{categoryKey}")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -70,7 +86,12 @@ public class CategoryService {
 	      return FAILURE_RESULT;
 	   }
 	   
-	   // Note that deleting a category will remove also any linked items!
+	   /**
+	    * Delete a category.
+	    * Delete only allowed for categories with no linked items,
+	    * as deleting a category otherwise would also delete those items.
+	    *
+	    */
 	   @DELETE
 	   @Path("/categories/{categoryKey}")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -82,6 +103,10 @@ public class CategoryService {
 	      return FAILURE_RESULT;
 	   }
 	   
+	   /**
+	    * Show options for the category service
+	    *
+	    */
 	   @OPTIONS
 	   @Path("/categories")
 	   @Produces(MediaType.APPLICATION_XML)
