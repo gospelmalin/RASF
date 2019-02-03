@@ -5,6 +5,9 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * The Class Storageplace holds information about storageplaces for items.
+ */
 @XmlRootElement(name = "storageplace")
 public class Storageplace implements Serializable {
  
