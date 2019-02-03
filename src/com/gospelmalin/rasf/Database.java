@@ -8,6 +8,9 @@ package com.gospelmalin.rasf;
 	import java.sql.SQLException;
 	import java.sql.Statement;
 
+/**
+ * The Class Database handles the database connection.
+ */
 public class Database {
 	
 	public Database() {}
@@ -34,16 +37,13 @@ public class Database {
 			conn = DriverManager.getConnection(CONN_STR,USER,PWD);
 			return conn;
 		} catch (SQLException e) {
-			System.err.println("An SQL exception occured when opening connection to MariaBD" + e);
-			} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("An SQL exception occured when opening connection to MariaBD" + e.getMessage());
+			} catch (InstantiationException e1) {
+				System.err.println("An Instantiation exception occured when opening connection to MariaBD" + e1.getMessage());
+		} catch (IllegalAccessException e2) {
+			System.err.println("An Illegal Access exception occured when opening connection to MariaBD" + e2.getMessage());
+		} catch (ClassNotFoundException e3) {
+			System.err.println("Oops! Class not found when opening connection to MariaBD" + e3.getMessage());
 		}
     	System.out.println("storingfoods (RAFS) Connected!");
     	return conn;
@@ -61,7 +61,7 @@ public class Database {
                 conn.close();
             }
         } catch (SQLException e){
-        	System.err.println("An SQL exception occured when closing connection " + e);
+        	System.err.println("An SQL exception occured when closing connection " + e.getMessage());
         }
         
         System.out.println("Connection to storingfoods (RASF) is closed!");
@@ -92,7 +92,7 @@ public class Database {
 			stmt.close();
 			
 		} catch (SQLException e) {
-			System.err.println("An SQL exception occured when while executing query " + e);
+			System.err.println("An SQL exception occured when while executing query " + e.getMessage());
 		}
 		
 		// close db
