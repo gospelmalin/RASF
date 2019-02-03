@@ -16,7 +16,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
-//Själva webservicen
+/**
+ * The Class StorageplaceService is the actual webservice for the storageplace.
+ */
 @Path("/StorageplaceService")
 public class StorageplaceService {
 
@@ -24,7 +26,10 @@ public class StorageplaceService {
 	   private static final String SUCCESS_RESULT="<result>success</result>";
 	   private static final String FAILURE_RESULT="<result>failure</result>";
 
-	   
+	   /**
+	    * Show all storageplaces
+	    *
+	    */
 	   @GET
 	   @Path("/storageplaces")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -32,6 +37,10 @@ public class StorageplaceService {
 	      return storageplaceDao.getAll();
 	   }
 	   
+	   /**
+	    * Show information about selected storageplace
+	    *
+	    */
 	   @GET
 	   @Path("/storageplaces/{storageplaceKey}")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -39,6 +48,10 @@ public class StorageplaceService {
 	      return storageplaceDao.getStorageplace(storageplaceKey);
 	   }
 	   
+	   /**
+		 * Add a new storageplace
+		 *
+		 */
 	   @POST
 	   @Path("/storageplaces")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -54,6 +67,10 @@ public class StorageplaceService {
 	      return FAILURE_RESULT;
 	   }
 	   
+	   /**
+		 * Update storageplace name
+		 *
+		 */
 	   @PUT
 	   @Path("/storageplaces/{storageplaceKey}")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -68,7 +85,12 @@ public class StorageplaceService {
 	      return FAILURE_RESULT;
 	   }
 	   
-	   // Note that deleting a storageplace will remove also any linked items!
+	   /**
+	    * Delete a storageplace.
+	    * Delete only allowed for storageplaces with no linked items,
+	    * as deleting a storageplace otherwise would also delete those items.
+	    *
+	    */
 	   @DELETE
 	   @Path("/storageplaces/{storageplaceKey}")
 	   @Produces(MediaType.APPLICATION_XML)
@@ -80,6 +102,10 @@ public class StorageplaceService {
 	      return FAILURE_RESULT;
 	   }
 	   
+	   /**
+	    * Show options for the storageplace service
+	    *
+	    */
 	   @OPTIONS
 	   @Path("/storageplaces")
 	   @Produces(MediaType.APPLICATION_XML)
