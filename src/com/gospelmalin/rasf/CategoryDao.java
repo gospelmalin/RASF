@@ -21,7 +21,6 @@ public class CategoryDao {
 			String query = "SELECT * from category;";
 			ResultSet rs = db.executeQuery(query);
 	  
-			
 			while(rs.next()) {
 			  int categoryKey = rs.getInt("category_key");
 			  String categoryName = rs.getString("category_name");
@@ -35,7 +34,7 @@ public class CategoryDao {
 		
 	      return categoriesList; 
 	   } 
-
+	
 	public Category getCategory(int categoryKey){
 		   List<Category> categories = getAll();
 
@@ -46,6 +45,7 @@ public class CategoryDao {
 	      }
 	      return null;
 	   }
+
 	
 	public int addCategory(Category pCategory){
 	      List<Category> categoryList = getAll();
@@ -85,6 +85,7 @@ public class CategoryDao {
 	      return 0;
 	   }
 	
+
 	public int updateCategory(Category pCategory){
 	      List<Category> categoryList = getAll();
 
@@ -122,42 +123,53 @@ public class CategoryDao {
 	      return 0;
 	   }
 	
+	
 	// Note that deleting a category will remove also any linked items!
-	public int deleteCategory(int categoryKey){
-		
-	      List<Category> categoryList = getAll();
+		public int deleteCategory(int categoryKey){
+			
+		  ItemDao itemDao = new ItemDao();
+		  List<Item> itemList = itemDao.getAll();
+	//Check if category is used by any item(s)
+		  boolean categoryUsed = false;
+	      for(Item item: itemList){
+	        if(item.getCategoryKey() == categoryKey){
+		      	 categoryUsed = true;
+		      	 System.out.println("Category may only be deleted while not assigned to item(s). Please reassign item(s) and retry.");
+		          break;
+	        }
+	      }
+	      if (categoryUsed == false) {   
+           String query = "DELETE FROM category WHERE category_key=?;";
+	       Connection conn = Database.connectMariaDb();
+	       try {
+			// Setup statement
+	    	   PreparedStatement stmt = conn.prepareStatement(query);
+     
+			// Set values
+				
+			   stmt.setInt(1, categoryKey);
+				
+			// Execute statement
+				stmt.executeUpdate();
+				
+			// Closing statement and connection
+				stmt.close();
+				Database.mariaDbClose();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return 0;
+			}
 
-	      for(Category category: categoryList){
-	         if(category.getCategoryKey() == categoryKey){
-	            int index = categoryList.indexOf(category);			
-	            categoryList.remove(index);
-	            
-	            String query = "DELETE FROM category WHERE category_key=?;";
-		         Connection conn = Database.connectMariaDb();
-		         try {
-					// Setup statement
-					 PreparedStatement stmt = conn.prepareStatement(query);
-	     
-					 // Set values
-					
-					stmt.setInt(1, categoryKey);
-					
-					// Execute statement
-					stmt.executeUpdate();
-					
-					// Closing statement and connection
-					stmt.close();
-					Database.mariaDbClose();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return 0;
-				}
-
-	            return 1;   
-	         }
-	      }		
+	       return 1;
+	      }
+	
 	      return 0;
 	   }
 	
+
+		
+		
+		
 }
