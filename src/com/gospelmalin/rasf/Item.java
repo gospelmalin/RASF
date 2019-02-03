@@ -4,7 +4,9 @@ import java.io.Serializable;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
+/**
+ * The Class Item holds information about items.
+ */
 @XmlRootElement(name = "item")
 public class Item implements Serializable {
 	
@@ -16,12 +18,11 @@ public class Item implements Serializable {
 	private String available;
 	
 	private int numberOfUnits;
-	//private int contentKey; //Old version
 	
 	private String categoryName;
 	
-	private int storageplaceKey; // Currently not entirely implemented
-	private String storageplaceName; // Currently not entirely implemented
+	private int storageplaceKey;
+	private String storageplaceName; 
 
 	// Constructors
 	public Item(){}
@@ -150,16 +151,6 @@ public class Item implements Serializable {
 			this.numberOfUnits = numberOfUnits;
 		}
 
-		/*
-		public int getContentKey() {
-			return contentKey;
-		}
-		
-		@XmlElement
-		public void setContentKey(int contentKey) {
-			this.contentKey = contentKey;
-		}
-*/
 		public String getCategoryName() {
 			return categoryName;
 		}
