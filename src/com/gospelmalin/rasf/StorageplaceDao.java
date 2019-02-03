@@ -26,7 +26,7 @@ public class StorageplaceDao {
 			while(rs.next()) {
 			  int storageplaceKey = rs.getInt("storageplace_key");
 			  String storageplaceName = rs.getString("storageplace_name");
-			  System.out.println(storageplaceKey + " " + storageplaceName);
+			//  System.out.println(storageplaceKey + " " + storageplaceName); // For development only
 			  storageplacesList.add(new Storageplace(storageplaceKey, storageplaceName));
 			}
 		} catch (SQLException e) {
