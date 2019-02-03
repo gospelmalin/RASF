@@ -34,6 +34,7 @@ public class StorageplaceDao {
 		}
 	      return storageplacesList; 
 	   } 
+	
 	/**
     * Show information about selected storageplace
     *
