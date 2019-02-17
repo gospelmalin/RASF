@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.OPTIONS;
 import javax.ws.rs.POST;
@@ -12,7 +14,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -56,9 +57,10 @@ public class CategoryService {
 	   @POST
 	   @Path("/categories")
 	   @Produces(MediaType.APPLICATION_XML)
-	 //  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	   public String createCategory(
-			   @QueryParam("categoryName") String categoryName, 
+			 //  @QueryParam("categoryName") String categoryName, // Changed to form input
+			   @FormParam("categoryName") String categoryName, 
 			   @Context HttpServletResponse servletResponse) throws IOException{
 		  Category category = new Category(categoryName);
 	      int result = categoryDao.addCategory(category);
@@ -75,8 +77,10 @@ public class CategoryService {
 	   @PUT
 	   @Path("/categories/{categoryKey}")
 	   @Produces(MediaType.APPLICATION_XML)
+	   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	   public String updateCategory(@PathParam("categoryKey") int categoryKey,
-			   @QueryParam("categoryName") String categoryName, 
+			 //  @QueryParam("categoryName") String categoryName, //Changed to FormParam
+			   @FormParam("categoryName") String categoryName, 
 			   @Context HttpServletResponse servletResponse) throws IOException{
 	      Category category = new Category(categoryKey, categoryName);
 	      int result = categoryDao.updateCategory(category);
