@@ -21,7 +21,7 @@ public class CategoryDao {
 		categoriesList = new ArrayList<Category>();		
 		Database db = new Database();
 		try {
-			String query = "SELECT * from category;";
+			String query = "SELECT * from category ORDER by category_name;";
 			ResultSet rs = db.executeQuery(query);	  
 			while(rs.next()) {
 			  int categoryKey = rs.getInt("category_key");
