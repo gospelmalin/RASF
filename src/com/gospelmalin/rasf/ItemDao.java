@@ -21,7 +21,7 @@ public class ItemDao {
 		itemsList = new ArrayList<Item>();
 		Database db = new Database();
 		try {
-			String query = "SELECT i.*, c.category_name, s.storageplace_key, s.storageplace_name from category c inner join item i on c.category_key = i.category_key left outer join storageplace s on i.storageplace_key = s.storageplace_key order by c.category_name, i.item_name;"; 
+			String query = "SELECT i.*, c.category_name, s.storageplace_key, s.storageplace_name from category c inner join item i on c.category_key = i.category_key left outer join storageplace s on i.storageplace_key = s.storageplace_key order by i.item_name;"; 
 			ResultSet rs = db.executeQuery(query);	  			
 			while(rs.next()) {
 			  int itemKey = rs.getInt("item_key");
