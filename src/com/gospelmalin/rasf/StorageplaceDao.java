@@ -21,7 +21,7 @@ public class StorageplaceDao {
 		storageplacesList = new ArrayList<Storageplace>();
 		Database db = new Database();
 		try {
-			String query = "SELECT * from storageplace;";
+			String query = "SELECT * from storageplace order by storageplace_name;";
 			ResultSet rs = db.executeQuery(query);
 			while(rs.next()) {
 			  int storageplaceKey = rs.getInt("storageplace_key");
