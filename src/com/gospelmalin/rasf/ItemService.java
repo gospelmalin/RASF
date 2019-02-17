@@ -12,7 +12,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
@@ -80,7 +79,9 @@ public class ItemService {
 	   @PUT
 	   @Path("/items/{itemKey}")
 	   @Produces(MediaType.APPLICATION_XML)
+	  // @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	   public String updateItem(@PathParam("itemKey") int itemKey,
+			   /*
 			   @QueryParam("categoryKey") int categoryKey, 
 			   @QueryParam("itemName") String itemName, 
 			   @QueryParam("unitsAlways") int unitsAlways, 
@@ -89,6 +90,15 @@ public class ItemService {
 			   @QueryParam("categoryName") String categoryName,
 			   @QueryParam("storageplaceKey") int storageplaceKey,
 	   		   @QueryParam("storageplaceName") String storageplaceName,
+	   		   */
+			   @FormParam("categoryKey") int categoryKey, 
+			   @FormParam("itemName") String itemName, 
+			   @FormParam("unitsAlways") int unitsAlways, 
+			   @FormParam("available") String available, 
+			   @FormParam("numberOfUnits") int numberOfUnits,   
+			   @FormParam("categoryName") String categoryName,
+			   @FormParam("storageplaceKey") int storageplaceKey,
+			   @FormParam("storageplaceName") String storageplaceName,
 	      @Context HttpServletResponse servletResponse) throws IOException{
 	      Item item = new Item(itemKey, categoryKey, itemName, unitsAlways, available, numberOfUnits, categoryName, storageplaceKey, storageplaceName);
 	      int result = itemDao.updateItem(item);
@@ -105,8 +115,9 @@ public class ItemService {
 	   @POST
 	   @Path("/items")
 	   @Produces(MediaType.APPLICATION_XML)
-	 //  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	   public String createItem(
+	   @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	   public String createItem( //TODO ändra till formparam
+			   /*
 			   @QueryParam("categoryKey") int categoryKey, 
 			   @QueryParam("itemName") String itemName, 
 			   @QueryParam("unitsAlways") int unitsAlways, 
@@ -115,6 +126,15 @@ public class ItemService {
 			// @QueryParam("categoryName") String categoryName,
 			   @QueryParam("storageplaceKey") int storageplaceKey,
 	   		// @QueryParam("storageplaceName") String storageplaceName,
+			   */
+			   @FormParam("categoryKey") int categoryKey, 
+			   @FormParam("itemName") String itemName, 
+			   @FormParam("unitsAlways") int unitsAlways, 
+			   @FormParam("available") String available, 
+			   @FormParam("numberOfUnits") int numberOfUnits,   
+			// @FormParam("categoryName") String categoryName,
+			   @FormParam("storageplaceKey") int storageplaceKey,
+	   		// @FormParam("storageplaceName") String storageplaceName,
 	      @Context HttpServletResponse servletResponse) throws IOException{
 		   Item item = new Item(categoryKey, itemName, unitsAlways, available, numberOfUnits, storageplaceKey);
 	      int result = itemDao.addItem(item);
